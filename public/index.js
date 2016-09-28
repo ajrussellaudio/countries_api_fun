@@ -22,13 +22,9 @@ var makeInfoContent = function( country ) {
   var pJapanese = document.createElement("p");
   pJapanese.innerText = "Japanese: " + country.translations.ja;
 
-  var pTime = document.createElement("p");
-  pTime.innerText = "Time: " + Date.now();
-
   container.appendChild(header);
   container.appendChild(pCapital);
   container.appendChild(pJapanese);
-  container.appendChild(pTime);
 
 
   return container
@@ -61,6 +57,11 @@ var createListItems = function( countries ) {
     option.innerText = country.name;
     options.push( option );
   }
+  var defaultOption = document.createElement( "option" );
+  defaultOption.innerText = "Pick a country..."
+  defaultOption.disabled = true;
+  defaultOption.selected = true;
+  options.unshift( defaultOption );
   return options;
 }
 
@@ -103,7 +104,7 @@ var makeRequest = function( url, callback ) {
 var app = function(){
   var container = document.getElementById("map");
   var centre = { lat:0, lng:0};
-  var zoom = 5;
+  var zoom = 2;
   map = new Map( container, centre, zoom );
   var url = "http://localhost:5000";
   console.log("before request");
